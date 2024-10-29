@@ -1,0 +1,6 @@
+0 paper
+1 paper 2
+2 box
+3 organic
+4 plastic
+5 lata
