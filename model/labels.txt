@@ -1,6 +1,4 @@
-0 paper
-1 paper 2
-2 box
-3 organic
-4 plastic
-5 lata
+0 organico
+1 Botellas
+2 Papel y Carton
+3 Mixto
