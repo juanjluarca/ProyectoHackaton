@@ -366,24 +366,24 @@ class Ui_Form(object):
         self.label_9.setText(_translate("Form", "Carton"))
 
     def encender_led(self, tipo_desecho):
-        # Apagar todos los LEDs primero
+        # Apagar todos los bloques al iniciar
         self.ObjectMixto.setStyleSheet("background-color: gray;")
         self.ObjectOrganic.setStyleSheet("background-color: gray;")
         self.ObjectPaper.setStyleSheet("background-color: gray;")
         self.ObjertBottle.setStyleSheet("background-color: gray;")
 
-        # Encender el LED correspondiente
+        # Encender el bloque correspondiente
         if tipo_desecho == "3 Mixto":
-            self.ObjectMixto.setStyleSheet("background-color: green;")
+            self.ObjectMixto.setStyleSheet("background-color: red;")
         elif tipo_desecho == "0 organico":
-            self.ObjectOrganic.setStyleSheet("background-color: green;")
+            self.ObjectOrganic.setStyleSheet("background-color: red;")
         elif tipo_desecho == "2 Papel y Carton":
-            self.ObjectPaper.setStyleSheet("background-color: green;")
+            self.ObjectPaper.setStyleSheet("background-color: red;")
         elif tipo_desecho == "1 Botellas":
-            self.ObjertBottle.setStyleSheet("background-color: green;")
+            self.ObjertBottle.setStyleSheet("background-color: red;")
 
     def loadCamera(self):
-        # 2 Papel y Cart????n
+        # 2 Papel y Carton
         # 3 Mixto
         # 0 organico
         # 1 Botellas
