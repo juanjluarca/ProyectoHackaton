@@ -1,5 +1,7 @@
 from PyQt6 import QtCore, QtGui, QtWidgets
-
+import tensorflow as tf
+import numpy as np
+import cv2
 
 class Ui_Form(object):
     def setupUi(self, Form):
@@ -363,6 +365,65 @@ class Ui_Form(object):
         self.label_9.setWhatsThis(_translate("Form", "<html><head/><body><p>Papel </p><p>y carton </p><p><br/></p></body></html>"))
         self.label_9.setText(_translate("Form", "Carton"))
 
+    def encender_led(self, tipo_desecho):
+        # Apagar todos los LEDs primero
+        self.ObjectMixto.setStyleSheet("background-color: gray;")
+        self.ObjectOrganic.setStyleSheet("background-color: gray;")
+        self.ObjectPaper.setStyleSheet("background-color: gray;")
+        self.ObjertBottle.setStyleSheet("background-color: gray;")
+
+        # Encender el LED correspondiente
+        if tipo_desecho == "3 Mixto":
+            self.ObjectMixto.setStyleSheet("background-color: green;")
+        elif tipo_desecho == "0 organico":
+            self.ObjectOrganic.setStyleSheet("background-color: green;")
+        elif tipo_desecho == "2 Papel y Carton":
+            self.ObjectPaper.setStyleSheet("background-color: green;")
+        elif tipo_desecho == "1 Botellas":
+            self.ObjertBottle.setStyleSheet("background-color: green;")
+
+    def loadCamera(self):
+        # 2 Papel y Cart????n
+        # 3 Mixto
+        # 0 organico
+        # 1 Botellas
+        # Se carga el modelo y se leen las etiquetas
+        model = tf.keras.models.load_model("model/modelo.h5")
+        with open("model/labels.txt", "r") as f:
+            labels = [line.strip() for line in f.readlines()]
+
+        # Se inicia la cámara
+        cap = cv2.VideoCapture(0)  # '0' Se selecciona la cámara principal
+
+        while True:
+            ret, frame = cap.read()
+            if not ret:
+                break
+
+            # Preprocesar el fotograma para el modelo
+            img = cv2.resize(frame, (224, 224))  # Ajustar tamaño según tu modelo
+            img = np.expand_dims(img, axis=0)  # Añadir dimensión para el batch
+            img = img / 255.0  # Normalización
+
+            # Predicción
+            predictions = model.predict(img)
+            predicted_label = labels[np.argmax(predictions)]
+
+
+
+            # Mostrar el resultado en el video en vivo
+            cv2.putText(frame, f"Tipo: {predicted_label}", (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
+            cv2.imshow("Waste Sorter", frame)
+            self.encender_led(predicted_label)
+
+            # Salir con la tecla 'q'
+            if cv2.waitKey(1) & 0xFF == ord("q"):
+                break
+
+        # Liberar recursos
+        cap.release()
+        cv2.destroyAllWindows()
+
 
 if __name__ == "__main__":
     import sys
@@ -371,4 +432,5 @@ if __name__ == "__main__":
     ui = Ui_Form()
     ui.setupUi(Form)
     Form.show()
+    ui.loadCamera()
     sys.exit(app.exec())
