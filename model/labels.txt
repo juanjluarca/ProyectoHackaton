@@ -1,4 +1,5 @@
-0 organico
-1 Botellas
-2 Papel y Carton
-3 Mixto
+0 Organico
+1 Mixto
+2 Papel y carton
+3 Botellas
+4 Fondo

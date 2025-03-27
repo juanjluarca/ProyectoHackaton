@@ -373,20 +373,23 @@ class Ui_Form(object):
         self.ObjertBottle.setStyleSheet("background-color: gray;")
 
         # Encender el bloque correspondiente
-        if tipo_desecho == "3 Mixto":
+        if tipo_desecho == "1 Mixto":
             self.ObjectMixto.setStyleSheet("background-color: red;")
-        elif tipo_desecho == "0 organico":
+        elif tipo_desecho == "0 Organico":
             self.ObjectOrganic.setStyleSheet("background-color: red;")
-        elif tipo_desecho == "2 Papel y Carton":
+        elif tipo_desecho == "2 Papel y carton":
             self.ObjectPaper.setStyleSheet("background-color: red;")
-        elif tipo_desecho == "1 Botellas":
+        elif tipo_desecho == "3 Botellas":
             self.ObjertBottle.setStyleSheet("background-color: red;")
+        elif tipo_desecho == "4 Fondo":
+            pass
 
     def loadCamera(self):
-        # 2 Papel y Carton
-        # 3 Mixto
-        # 0 organico
-        # 1 Botellas
+        # 2 Papel y carton
+        # 1 Mixto
+        # 0 Organico
+        # 3 Botellas
+        # 4 Fondo
         # Se carga el modelo y se leen las etiquetas
         model = tf.keras.models.load_model("model/modelo.h5")
         with open("model/labels.txt", "r") as f:
