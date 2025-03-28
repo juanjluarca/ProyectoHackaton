@@ -41,7 +41,7 @@ class Ui_Form(object):
         self.label_3.setScaledContents(True)
         self.label_3.setObjectName("label_3")
         self.label_4 = QtWidgets.QLabel(parent=Form)
-        self.label_4.setGeometry(QtCore.QRect(0, 0, 1291, 881))
+        self.label_4.setGeometry(QtCore.QRect(0, 0, 1100, 750))
         self.label_4.setStyleSheet("background-color: rgb(119, 221, 119);")
         self.label_4.setText("")
         self.label_4.setPixmap(QtGui.QPixmap("Imagenes/file.png"))
